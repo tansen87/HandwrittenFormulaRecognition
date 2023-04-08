@@ -8,7 +8,7 @@ usage
 2. `python main.py` 运行本程序
 
 
-
+##### tips
 * 目前只训练了<mark>0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , +, -, =,*, /, (, )</mark>符号
 
 * 如果你想自己训练，在[kaggle](https://www.kaggle.com/xainano/handwrittenmathsymbols)下载数据集，然后`train/train.py`进行训练
