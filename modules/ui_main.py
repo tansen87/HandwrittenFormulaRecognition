@@ -1,13 +1,11 @@
-import time
 import cv2
-from matplotlib import pyplot as plt
-
+import matplotlib.pyplot as plt
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-from modules import predict
 
 from .resources_rc import *
+from modules.predict import MyModel
 
 global file_name, results
 
@@ -1271,14 +1269,14 @@ class Ui_MainWindow(object):
 
     # retranslateUi
 
-    def openPic(self):
+    def openPic(self) -> None:
         global file_name
         imgName, imgType = QFileDialog.getOpenFileName(self.widgets, "open image", "", "All Files(*)")
         self.label_pic.setPixmap(QPixmap(imgName))
         self.label_pic.setScaledContents(True)
         file_name = imgName
 
-    def dispPic(self):  # function for show pictures with matplotlib
+    def dispPic(self) -> None:  # function for show pictures with matplotlib
         fig = plt.figure(figsize=(4, 4))
         axes = fig.add_subplot(111)
         axes.set_xticks([])
@@ -1287,63 +1285,53 @@ class Ui_MainWindow(object):
         axes.spines['right'].set_color('none')
         axes.spines['bottom'].set_color('none')
         axes.spines['top'].set_color('none')
-        # noinspection PyBroadException
         try:
             pred_image = '$' + results + '$'
             axes.text(0, 0.5, pred_image, fontsize=20)
             test_pic = './test_img/matplotlib_pic/test.png'
             plt.savefig(test_pic)
-        except Exception:
-            QMessageBox.information(self.widgets, 'error',
-                                    'No picture or wrong picture recognition!')
-        else:
             self.label_mat_pic.setPixmap(QPixmap(test_pic))
             self.label_mat_pic.setScaledContents(True)
+        except:
+            QMessageBox.information(self.widgets, 'error',
+                                    'No picture or wrong picture recognition!')
 
-    def share(self):
+    def share(self) -> None:
         QDesktopServices.openUrl(QUrl("https://github.com/tansen87/handwritten-symbol-recognition"))
-        return
 
-    def more(self):
+    def more(self) -> None:
         QMessageBox.about(self.widgets, "about",
                           "<font size='4' color='pink'>"
                           "This is a program that converts handwritten mathematical formulas into strings.<hr>"
                           "</font>")
 
-    def distinguish(self):  # function for recognition images
+    def distinguish(self) -> None:  # function for recognition images
         self.thread_err = MyThread()
-        # 线程信号绑定到负责写入文本浏览器的槽函数onUpdateText
         self.thread_err.signalForText.connect(self.onUpdateText)
-        # self.thread_err.updateProgress.connect(self.onUpdateProg)
         self.thread_err.start()
 
-    def onUpdateText(self, text):
+    def onUpdateText(self, text) -> None:
         self.lineEdit.append(text)
-
-    # def onUpdateProg(self, progress):
-    #     self.progressBar.setValue(progress)
 
 
 class MyThread(QThread):
     signalForText = Signal(str)
     updateProgress = Signal(int)
 
-    def __init__(self):
+    def __init__(self) -> None:
         super(MyThread, self).__init__()
+        self.model = MyModel()
 
-    def write(self, text):
+    def write(self, text) -> None:
         self.signalForText.emit(str(text))
 
-    def run(self):
-        global pred_string
-        # noinspection PyBroadException
-        global file_name, results
+    def run(self) -> None:
+        global pred_string, file_name, results
         results = ''
         try:
             image = cv2.imread(file_name)
-        except Exception:
-            self.write('error')
+        except Exception as e:
+            self.write(f"Error: {e}.")
         else:
-            results = predict.image_predict(image)
+            results = self.model.image_predict(image)
             self.write(results)
-

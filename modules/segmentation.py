@@ -1,9 +1,9 @@
-import torch
 import cv2
+import torch
 
 
-def Vertical_Projection(src):
-    seg_img = []
+def Vertical_Projection(src: str) -> list:
+    seg_img: list = []
     gray_img = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(gray_img, 130, 255, cv2.THRESH_BINARY)  # 二值化
     (thresh_h, thresh_w) = thresh.shape
@@ -14,10 +14,10 @@ def Vertical_Projection(src):
         for i in range(0, thresh_w):
             if thresh[j, i] != 255:
                 line[j] += 1
-    flip_flop = False
-    white = 0
-    black = 0
-    line_point = []
+    flip_flop: bool = False
+    white: int = 0
+    black: int = 0
+    line_point: list = []
     for i in range(0, thresh_h):
         if line[i] > 0:
             if not flip_flop:
@@ -45,10 +45,10 @@ def Vertical_Projection(src):
             for j in range(0, image_h):
                 if image[j, i] != 255:
                     column[i] += 1
-        flip_flop = False
-        white = 0
-        black = 0
-        column_point = []
+        flip_flop: bool = False
+        white: int = 0
+        black: int = 0
+        column_point: list = []
         for i in range(0, image_w):
             if column[i] > 0:
                 if not flip_flop:
