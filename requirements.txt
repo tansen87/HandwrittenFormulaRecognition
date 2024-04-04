@@ -1,13 +1,7 @@
 opencv-python==4.4.0.46
-
 numpy==1.22.4
-
 torch==1.10.2
-
 torchvision==0.11.3
-
 Pillow==9.1.1
-
 matplotlib==3.4.3
-
 PySide6==6.2.2.1
