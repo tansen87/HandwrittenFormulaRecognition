@@ -1,4 +1,4 @@
-# 基于ResNet的手写算式识别
+# 基于ResNet的手写公式识别
 > 截图
 ![image](https://github.com/tansen87/HandwrittenFormulaRecognition/assets/98570790/13bf3de4-c238-4aa4-b6e2-23e6808ee08e)
 
