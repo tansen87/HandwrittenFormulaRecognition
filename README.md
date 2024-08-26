@@ -1,6 +1,5 @@
 # 基于ResNet的手写公式识别
 > 截图
-<<<<<<< HEAD
 
 ![image](https://github.com/tansen87/HandwrittenFormulaRecognition/assets/98570790/13bf3de4-c238-4aa4-b6e2-23e6808ee08e)
 
@@ -36,20 +35,6 @@
    python main.py
    ```
 
-=======
-![image](https://github.com/tansen87/HandwrittenFormulaRecognition/assets/98570790/13bf3de4-c238-4aa4-b6e2-23e6808ee08e)
-
-### 安装依赖
-```bash
-pip install -r requirements.txt
-```
-
-### 运行
-```bash
-python main.py
-```
-
->>>>>>> 5fc2d4f020bf67852ed79c368ba6ed2d1fc3712e
 #### video demo
 [bilibili](https://www.bilibili.com/video/BV1Qa411f7dB/?spm_id_from=333.999.0.0&vd_source=5ee5270944c6e7a459e1311330bf455c)
 #### tips
