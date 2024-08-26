@@ -5,3 +5,4 @@ torchvision==0.11.3
 Pillow==9.1.1
 matplotlib==3.4.3
 PySide6==6.2.2.1
+setuptools
