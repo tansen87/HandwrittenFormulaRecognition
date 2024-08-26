@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
         # 使用自定义标题栏 | 在Mac或Linux中改为“False”
         Settings.ENABLE_CUSTOM_TITLE_BAR = True
 
-        title = "="
+        title = "手写算式识别"
         description = "手写算式识别"
         # 应用文本
         self.setWindowTitle(title)
