@@ -32,7 +32,7 @@
 5. 运行项目
 
    ```bash
-   python main.py
+   uv run main.py
    ```
 
 #### video demo
