@@ -4,8 +4,8 @@ import torch
 import torch.nn as nn
 import numpy as np
 from PIL import Image
+import torchvision as tv
 from torchvision.models import ResNet
-from torchvision import transforms, models
 
 from modules import segmentation
 
@@ -13,7 +13,7 @@ from modules import segmentation
 class Net(nn.Module):
     def __init__(self) -> None:
         super(Net, self).__init__()
-        self.BackBone = models.resnet18(pretrained=False)
+        self.BackBone = tv.models.resnet18(pretrained=False)
         self.BackBone.fc = nn.Linear(self.BackBone.fc.in_features, 18)
 
     def forward(self, x) -> ResNet:
@@ -34,13 +34,13 @@ class MyModel:
         # 进入测试模式，不用计算梯度，速度会快一些
         self.model.eval()
         # 对图像做处理
-        self.data_transform = transforms.Compose([
+        self.data_transform = tv.transforms.Compose([
             # 缩放到224*224
-            transforms.Resize((224, 224)),
+            tv.transforms.Resize((224, 224)),
             # 将图片转换为tensor
-            transforms.ToTensor(),
+            tv.transforms.ToTensor(),
             # 正则化：降低模型复杂度
-            transforms.Normalize((0.1307, 0.1307, 0.1307), (0.3081, 0.3081, 0.3081)),
+            tv.transforms.Normalize((0.1307, 0.1307, 0.1307), (0.3081, 0.3081, 0.3081)),
         ])
         self.dictionaries: list[str] = [f"{os.getcwd()}/modules/dictionaries.txt"]
 
@@ -64,7 +64,7 @@ class MyModel:
 
     def image_predict(self, image: str) -> str:
         results: str = ''
-        seg_img = segmentation.Vertical_Projection(image)
+        seg_img = segmentation.vertical_projection(image)
         for single_img in seg_img:
             image = Image.fromarray(np.uint8(single_img)).convert('RGB')
             r_image = self.data_transform(image)

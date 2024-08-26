@@ -2,7 +2,7 @@ import cv2
 import torch
 
 
-def Vertical_Projection(src: str) -> list:
+def vertical_projection(src: str) -> list:
     seg_img: list = []
     gray_img = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(gray_img, 130, 255, cv2.THRESH_BINARY)  # 二值化
